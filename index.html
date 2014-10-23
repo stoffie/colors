@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script src="http://code.jquery.com/jquery-1.8.2.min.js"></script>
+<meta charset=utf-8 />
+<title>colors!</title>
+<style>
+body {
+transition: all linear 5s;
+}
+</style>
+<script>
+var items = ['white','black','red','blue','green'];
+var item = items[Math.floor(Math.random()*items.length)];
+var olditem = item;
+$(function(){
+	$('body').css('background-color',item);
+	$('body').on("webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend", function(event){
+		if(event.target === event.currentTarget) {
+			do {
+				console.log('roll');
+				item = items[Math.floor(Math.random()*items.length)];
+				item = '#'+('00000'+(Math.random()*(1<<24)|0).toString(16)).slice(-6);
+			} while (item === olditem);
+			console.log(['done',olditem, item])
+			olditem = item;
+			$('body').css('background-color',item);
+		}
+	});
+});
+</script>
+</head>
+<body>
+</body>
+</html>
